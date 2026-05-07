@@ -5,8 +5,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.example.SessionInformation;
+
 // ExtractFunction is used to extract useful data/rows of each individual main table (Users, Accounts, Transactions, Loans)
 public class ExtractFunction {
+    public static SessionInformation getUserByLogin(Connection conn, String userName, String password) throws SQLException{
+        String sql = "SELECT * FROM Users WHERE UserName = ? AND Password = ?";
+        try (PreparedStatement p_stmt = conn.prepareStatement(sql)) {
+            p_stmt.setString(1, userName);
+            p_stmt.setString(2, password);
+                try (ResultSet rs = p_stmt.executeQuery()) {
+                    if (rs.next()){
+                        return new SessionInformation(
+                            rs.getInt("UserID"),
+                            rs.getString("Name"),
+                            rs.getString("Email"),
+                            rs.getString("Phone"),
+                            rs.getString("Address"),
+                            SessionInformation.Role.valueOf(rs.getString("Role"))
+                        );
+                    }
+                }
+            return null;
+        }
+    }
     // Extract the Accounts belonging to one User
     public static void getAccountsByUserID(Connection conn, int userID) throws SQLException {
         String sql = "SELECT * FROM Accounts WHERE UserID = ?";

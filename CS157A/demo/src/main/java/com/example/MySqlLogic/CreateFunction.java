@@ -8,6 +8,7 @@ public class CreateFunction {
     // MySQL code for creating tables as a string
     static String createUsersTable = "CREATE TABLE IF NOT EXISTS Users (" +
             "UserID INT AUTO_INCREMENT PRIMARY KEY, " +
+            "UserName VARCHAR(255) UNIQUE NOT NULL," +
             "Password VARCHAR(255) NOT NULL, " +
             "Name VARCHAR(100) NOT NULL, " +
             "Email VARCHAR(100) UNIQUE NOT NULL, " +
