@@ -11,6 +11,7 @@ public class SessionInformation {
         Customer,
         Admin
     }
+    private static SessionInformation currentSession;
     public SessionInformation(int userID, String name, String email, String phone, String address, Role role){
         this.userID = userID;
         this.name = name;
@@ -36,5 +37,11 @@ public class SessionInformation {
     }
     public Role getRole(){
         return role;
+    }
+    public static void setSession(SessionInformation session){
+        currentSession = session;
+    }
+    public static SessionInformation getSession(){
+        return currentSession;
     }
 }

@@ -32,6 +32,7 @@ public class LoginController {
             error.showAndWait();
         }
         else{
+            SessionInformation.setSession(check);
             App.setRoot("UserView");
         }
     }

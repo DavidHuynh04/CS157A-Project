@@ -1,9 +1,9 @@
-
+package com.example.MySqlLogic_v2;
 // JeremyLimKL : Last update 5/6
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Date;
 
 public class Main {
     // Database credentials

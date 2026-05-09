@@ -1,6 +1,6 @@
 
 // JeremyLimKL : Last update 5/6
-//package com.example.MySqlLogic;
+package com.example.MySqlLogic_v2;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

@@ -1,9 +1,9 @@
-
+package com.example.MySqlLogic_v2;
 // JeremyLimKL : Last update 5/6
 //package com.example.MySqlLogic;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 // UpdateFunction is used to edit/update existing data/rows in the 4 main tables (Users, Accounts, Transactions, Loans) 
 // and to update the monthly deduction of loans in Accounts table and Loans table.
