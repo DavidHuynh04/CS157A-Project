@@ -1,5 +1,5 @@
 
-// JeremyLimKL : Last update 5/7
+// JeremyLimKL : Last update 5/9
 //package com.example.MySqlLogic;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -87,13 +87,71 @@ public class ExtractFunction {
         return loans;
     }
 
+    // Converts the object input into the correct varriable type based on the table
+    // & column name
+    public static Object convertInput(String tableName, String columnName, String input) {
+        switch (tableName) {
+            case "Users":
+                switch (columnName) {
+                    case "UserID":
+                        return Integer.parseInt(input);
+                    default:
+                        return input;
+                }
+            case "Accounts":
+                switch (columnName) {
+                    case "AccountID":
+                    case "UserID":
+                        return Integer.parseInt(input);
+                    case "Balance":
+                    case "InterestRate":
+                        return Double.parseDouble(input);
+                    case "AccountCreationDate":
+                        return java.sql.Date.valueOf(input);
+                    default:
+                        return input.toString();
+                }
+            case "Transactions":
+                switch (columnName) {
+                    case "TransactionID":
+                    case "SenderAccountID":
+                    case "RecipientAccountID":
+                        return Integer.parseInt(input);
+                    case "TransactionAmount":
+                        return Double.parseDouble(input);
+                    case "TransactionDate":
+                        return java.sql.Timestamp.valueOf(input);
+                    default:
+                        return input;
+                }
+            case "Loans":
+                switch (columnName) {
+                    case "LoanID":
+                    case "AccountID":
+                        return Integer.parseInt(input);
+                    case "LoanOriginal":
+                    case "InterestRate":
+                    case "LoanRemaining":
+                    case "LoanMonthly":
+                        return Double.parseDouble(input);
+                    case "LoanStartDate":
+                        return java.sql.Date.valueOf(input);
+                    case "LoanPeriod":
+                        return Integer.parseInt(input);
+                    default:
+                        return input;
+                }
+        }
+        return null;
+    }
+
     // Extract any rows from Users table
-    public static ArrayList<SessionInformation> getUserDashboard(Connection conn, String columnName, Object input)
+    public static ArrayList<SessionInformation> getUserDashboard(Connection conn, String columnName, String input)
             throws SQLException {
         String sql = "SELECT * FROM Users WHERE " + columnName + " = ? ";
         ArrayList<SessionInformation> rows = new ArrayList<>();
         try (PreparedStatement p_stmt = conn.prepareStatement(sql)) {
-            p_stmt.setObject(1, input);
+            p_stmt.setObject(1, convertInput("Users", columnName, input));
             try (ResultSet rs = p_stmt.executeQuery()) {
                 while (rs.next()) {
                     SessionInformation sessionInformation = new SessionInformation(rs.getInt("UserID"),
@@ -108,12 +166,12 @@ public class ExtractFunction {
     }
 
     // Extract any rows from Account table
-    public static ArrayList<AccountClass> getAccountDashboard(Connection conn, String columnName, Object input)
+    public static ArrayList<AccountClass> getAccountDashboard(Connection conn, String columnName, String input)
             throws SQLException {
         String sql = "SELECT * FROM Accounts WHERE " + columnName + " = ? ";
         ArrayList<AccountClass> rows = new ArrayList<>();
         try (PreparedStatement p_stmt = conn.prepareStatement(sql)) {
-            p_stmt.setObject(1, input);
+            p_stmt.setObject(1, convertInput("Accounts", columnName, input));
             try (ResultSet rs = p_stmt.executeQuery()) {
                 while (rs.next()) {
                     AccountClass account = new AccountClass(rs.getInt("AccountID"), rs.getInt("UserID"),
@@ -127,12 +185,12 @@ public class ExtractFunction {
     }
 
     // Extract any rows from Transactions table
-    public static ArrayList<TransactionClass> getTransactionDashboard(Connection conn, String columnName, Object input)
+    public static ArrayList<TransactionClass> getTransactionDashboard(Connection conn, String columnName, String input)
             throws SQLException {
         String sql = "SELECT * FROM Transactions WHERE " + columnName + " = ? ";
         ArrayList<TransactionClass> rows = new ArrayList<>();
         try (PreparedStatement p_stmt = conn.prepareStatement(sql)) {
-            p_stmt.setObject(1, input);
+            p_stmt.setObject(1, convertInput("Transactions", columnName, input));
             try (ResultSet rs = p_stmt.executeQuery()) {
                 while (rs.next()) {
                     TransactionClass transaction = new TransactionClass(rs.getInt("TransactionID"),
@@ -147,12 +205,12 @@ public class ExtractFunction {
     }
 
     // Extract any rows from Loans table
-    public static ArrayList<LoanClass> getLoanDashboard(Connection conn, String columnName, Object input)
+    public static ArrayList<LoanClass> getLoanDashboard(Connection conn, String columnName, String input)
             throws SQLException {
         String sql = "SELECT * FROM Loans WHERE " + columnName + " = ? ";
         ArrayList<LoanClass> rows = new ArrayList<>();
         try (PreparedStatement p_stmt = conn.prepareStatement(sql)) {
-            p_stmt.setObject(1, input);
+            p_stmt.setObject(1, convertInput("Loans", columnName, input));
             try (ResultSet rs = p_stmt.executeQuery()) {
                 while (rs.next()) {
                     LoanClass loan = new LoanClass(rs.getInt("LoanID"), rs.getInt("AccountID"),
