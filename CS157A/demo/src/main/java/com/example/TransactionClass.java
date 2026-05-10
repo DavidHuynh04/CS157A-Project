@@ -1,13 +1,13 @@
 package com.example;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class TransactionClass {
     private int transactionID;
     private int senderID;
     private int recipientID;
     private double transactionAmount;
-    private Date date;
-    public TransactionClass(int transactionID, int senderID, int recipientID, double transactionAmount, Date date){
+    private Timestamp date;
+    public TransactionClass(int transactionID, int senderID, int recipientID, double transactionAmount, Timestamp transactionDate){
         this.transactionID = transactionID;
         this.senderID = senderID;
         this.recipientID = recipientID;
@@ -26,7 +26,7 @@ public class TransactionClass {
     public double getTransactionAmount(){
         return transactionAmount;
     }
-    public Date getTransactionDate(){
+    public Timestamp getTransactionDate(){
         return date;
     }
 }

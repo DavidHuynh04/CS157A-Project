@@ -1,3 +1,4 @@
+package com.example;
 // JeremyLimKL : Last update 5/7
 import java.sql.Date;
 
@@ -11,6 +12,7 @@ public class LoanClass {
     private double loanMonthly;
     private Date loanStartDate;
     private int loanPeriod;
+    private static LoanClass currentLoan = null;
 
     // Constructor for LoanClass object.
     public LoanClass(int loanID, int accountID, double loanOriginal, double interestRate, double loanRemaining,
@@ -49,5 +51,11 @@ public class LoanClass {
     }
     public int getLoanPeriod() {
         return loanPeriod;
+    }
+    public static void setCurrentLoan(LoanClass loan){
+        currentLoan = loan;
+    }
+    public static LoanClass getCurrentLoan(){
+        return currentLoan;
     }
 }

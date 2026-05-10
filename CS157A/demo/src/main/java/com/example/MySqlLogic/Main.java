@@ -1,4 +1,4 @@
-package com.example.MySqlLogic_v2;
+package com.example.MySqlLogic;
 // JeremyLimKL : Last update 5/6
 import java.sql.Connection;
 import java.sql.Date;

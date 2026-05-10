@@ -1,4 +1,4 @@
-
+package com.example;
 // JeremyLimKL : Last update 5/7
 import java.sql.Date;
 
@@ -10,6 +10,10 @@ public class AccountClass {
     private String accountType;
     private double interestRate;
     private Date accountCreationDate;
+    private static AccountClass checkingAccount = null;
+    private static AccountClass savingsAccount = null;
+    private static AccountClass creditAccount = null;
+    private static AccountClass currentAccount;
 
     // Constructor for AccountClass object.
     public AccountClass(int accountID, int userID, double balance, String accountType, double interestRate,
@@ -45,5 +49,30 @@ public class AccountClass {
 
     public Date getAccountCreationDate() {
         return accountCreationDate;
+    }
+
+    public static AccountClass getCheckingAccount(){
+        return checkingAccount;
+    }
+    public static AccountClass getSavingsAccount(){
+        return savingsAccount;
+    }
+    public static AccountClass getCreditAccount(){
+        return creditAccount;
+    }
+    public static AccountClass getCurrentAccount(){
+        return currentAccount;
+    }
+    public static void setCheckingAccount(AccountClass account){
+        checkingAccount = account;
+    }
+    public static void setSavingsAccount(AccountClass account){
+        savingsAccount = account;
+    }
+    public static void setCreditAccount(AccountClass account){
+        creditAccount = account;
+    }
+    public static void setCurrentAccount(AccountClass account){
+        currentAccount = account;
     }
 }
