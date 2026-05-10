@@ -1,14 +1,18 @@
 package com.example;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.example.MySqlLogic.ExtractFunction;
+import com.example.MySqlLogic.InsertFunction;
 import com.example.MySqlLogic.SQLConnection;
+import com.example.MySqlLogic.UpdateFunction;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 public class UserViewController {
     @FXML 
@@ -26,11 +30,11 @@ public class UserViewController {
     @FXML 
     private Text CreditInterest;
     @FXML 
-    private Label Email;
+    private TextField Email;
     @FXML 
-    private Label Phone;
+    private TextField Phone;
     @FXML 
-    private Label Address;
+    private TextField Address;
     private ArrayList<AccountClass> accounts;
     
     private static SessionInformation currentSession;
@@ -43,9 +47,9 @@ public class UserViewController {
     @FXML
     public void setInfo(){
         WelcomeName.setText("Welcome: " + currentSession.getName());
-        Email.setText("Email: " + currentSession.getEmail());
-        Phone.setText("Phone: " + currentSession.getPhone());
-        Address.setText("Address: " + currentSession.getAddress());
+        Email.setText(currentSession.getEmail());
+        Phone.setText(currentSession.getPhone());
+        Address.setText(currentSession.getAddress());
     }
     public void setAccountInfo()throws SQLException{
         accounts = ExtractFunction.getAccountsByUserID(SQLConnection.getConnection(), currentSession.getUserID());
@@ -62,8 +66,8 @@ public class UserViewController {
                 SavingsBalance.setText("Balance: " + temp.getBalance());
                 SavingsInterest.setText("Interest Rate: " + temp.getInterestRate() + "%");
             }
-            else if (temp.getAccountType().equals("Credit")){
-                AccountClass.setCheckingAccount(temp);
+            else if (temp.getAccountType().equals("Credit Card")){
+                AccountClass.setCreditAccount(temp);
                 CreditBalance.setText("Balance: " + temp.getBalance());
                 CreditInterest.setText("Interest Rate: " + temp.getInterestRate() + "%");
             }
@@ -79,32 +83,45 @@ public class UserViewController {
         App.setRoot("MainMenuScene");
     }
     @FXML
-    private void AccountLoad1() throws IOException{
+    private void AccountLoad1() throws SQLException, IOException{
         AccountClass temp = AccountClass.getCheckingAccount();
         if (temp != null){
             AccountClass.setCurrentAccount(temp);
             App.setRoot("AccountInformation");
         }
+        else{
+            InsertFunction.insertAccount(SQLConnection.getConnection(), currentSession.getUserID(), 0, "Checking", 0.0, Date.valueOf(LocalDate.now()));
+            setAccountInfo();
+        }
     }
     @FXML
-    private void AccountLoad2() throws IOException{
+    private void AccountLoad2() throws SQLException, IOException{
         AccountClass temp = AccountClass.getSavingsAccount();
         if (temp != null){
             AccountClass.setCurrentAccount(temp);
             App.setRoot("AccountInformation");
         }
+        else{
+            InsertFunction.insertAccount(SQLConnection.getConnection(), currentSession.getUserID(), 0, "Savings", 2.5, Date.valueOf(LocalDate.now()));
+            setAccountInfo();
+        }
     }
     @FXML
-    private void AccountLoad3() throws IOException{
+    private void AccountLoad3() throws SQLException, IOException{
         AccountClass temp = AccountClass.getCreditAccount();
         if (temp != null){
             AccountClass.setCurrentAccount(temp);
             App.setRoot("AccountInformation");
         }
+        else{
+            InsertFunction.insertAccount(SQLConnection.getConnection(), currentSession.getUserID(), 0, "Credit Card", 18.0, Date.valueOf(LocalDate.now()));
+            setAccountInfo();
+        }
     }   
     @FXML
-    private void updateUser(){
-
+    private void updateUser() throws SQLException{
+        UpdateFunction.updateUser(SQLConnection.getConnection(), currentSession.getUserID(), currentSession.getUsername(), 
+        currentSession.getPassword(), currentSession.getName(), Email.getText(), Phone.getText(), Address.getText(), currentSession.getRole());
     }
     
 }

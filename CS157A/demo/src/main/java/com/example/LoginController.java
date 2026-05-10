@@ -33,7 +33,12 @@ public class LoginController {
         }
         else{
             SessionInformation.setSession(check);
-            App.setRoot("UserView");
+            if (check.getRole().equals("Customer")){
+                App.setRoot("UserView");
+            }
+            else if (check.getRole().equals("Admin")){
+                App.setRoot("AdministratorView");
+            }
         }
     }
 }

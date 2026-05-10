@@ -34,7 +34,6 @@ public class AccountClass {
     public int getUserID() {
         return userID;
     }
-
     public double getBalance() {
         return balance;
     }

@@ -33,19 +33,19 @@
 -->
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="678.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="678.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AdministratorViewController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -87,33 +87,28 @@
       </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-            <Text layoutX="41.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction History:" wrappingWidth="163.13671875" />
-        <Label fx:id="AccountField" alignment="CENTER" layoutX="41.0" layoutY="39.0" prefHeight="27.0" prefWidth="120.0" style="&#10;" text="Account Type:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
-        </Label>
-            <Text fx:id="BalanceField" layoutX="41.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:" wrappingWidth="163.13671875" />
-            <Button layoutX="73.0" layoutY="546.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Make A Transaction" />
-            <Button layoutX="778.0" layoutY="383.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Apply For A Loan" />
-            <Button layoutX="431.0" layoutY="546.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Dispute A Transaction" />
-            <Text layoutX="778.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Information:" wrappingWidth="181.13671875" />
-            <Text fx:id="LoanAmountField" layoutX="778.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Amount:" wrappingWidth="181.13671875" />
-            <Text fx:id="InterestField" layoutX="778.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interest Rate:" wrappingWidth="181.13671875" />
-            <Text fx:id="PeriodField" layoutX="778.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Period:" wrappingWidth="181.13671875" />
-            <Text fx:id="LoanStartField" layoutX="778.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Start Date:" wrappingWidth="181.13671875" />
-            <TableView fx:id="TransactionTable" layoutX="41.0" layoutY="152.0" prefHeight="370.0" prefWidth="700.0">
-              <columns>
-                <TableColumn fx:id="SenderColumn" prefWidth="175.0" text="Sender" />
-                <TableColumn fx:id="RecipientColumn" prefWidth="175.0" text="Recipient" />
-                  <TableColumn fx:id="AmountColumn" prefWidth="175.0" text="Amount" />
-                  <TableColumn fx:id="DateColumn" prefWidth="175.0" text="Transaction Date" />
-              </columns>
-            </TableView>
-            <Text fx:id="MonthlyField" layoutX="778.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monthly Loan:" wrappingWidth="181.13671875" />
-            <Text fx:id="RemainingField" layoutX="778.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remaining Loan:" wrappingWidth="181.13671875" />
-      </children>
+         <children>
+            <Text layoutX="39.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator View" wrappingWidth="387.13671875">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Text>
+            <Button layoutX="829.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Log Out" onAction="#switchToMainMenu"/>
+            <TableView fx:id="TableView" layoutX="60.0" layoutY="148.0" prefHeight="353.0" prefWidth="877.0" />
+            <ChoiceBox fx:id="SearchChoice" layoutX="133.0" layoutY="103.0" prefWidth="150.0" />
+            <Text layoutX="60.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search :" wrappingWidth="73.13671875" />
+            <Text layoutX="315.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By:" wrappingWidth="73.13671875" />
+            <TextField fx:id="SearchBy" layoutX="363.0" layoutY="103.0" />
+            <Button layoutX="805.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Go" onAction="#populateTable"/>
+            <ChoiceBox fx:id="DeleteChoice" layoutX="158.0" layoutY="549.0" prefWidth="150.0" />
+            <Text layoutX="60.0" layoutY="566.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete:" wrappingWidth="73.13671875" />
+            <Text layoutX="352.0" layoutY="566.0" strokeType="OUTSIDE" strokeWidth="0.0" text="With ID:" wrappingWidth="73.13671875" />
+            <TextField fx:id="DeleteID" layoutX="424.0" layoutY="549.0" />
+            <Button layoutX="641.0" layoutY="549.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Delete" onAction="#deleteTuple"/>
+            <Text layoutX="551.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equals:" wrappingWidth="73.13671875" />
+            <TextField fx:id="Equals" layoutX="624.0" layoutY="103.0" />
+            <Button layoutX="624.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Apply Monthly Loan" onAction="#applyMonthly"/>
+         </children>
     </AnchorPane>
   </children>
 </VBox>

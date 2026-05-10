@@ -37,15 +37,17 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.RegisterController">
+
+<VBox prefHeight="678.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AccountController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -88,27 +90,33 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="192.0" layoutY="28.0" prefHeight="37.0" prefWidth="256.0" style="&#10;" text="Register" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <Text layoutX="41.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction History:" wrappingWidth="163.13671875" />
+        <Label fx:id="AccountField" alignment="CENTER" layoutX="41.0" layoutY="39.0" prefHeight="27.0" prefWidth="400.0" style="&#10;" text="Account Type:" textAlignment="LEFT" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Text layoutX="190.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
-            <Text layoutX="191.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-            <Button layoutX="233.0" layoutY="311.0" mnemonicParsing="false" text="Back" onAction="#backButton"/>
-            <TextField fx:id="UsernameField" layoutX="374.0" layoutY="75.0" />
-            <PasswordField fx:id="PasswordField" layoutX="374.0" layoutY="139.0" />
-            <Text layoutX="191.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-            <PasswordField fx:id="ConfirmPasswordField" layoutX="374.0" layoutY="175.0" />
-            <Text layoutX="191.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password:" />
-            <Text layoutX="191.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
-            <Text layoutX="191.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:" />
-            <Text layoutX="191.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" />
-            <TextField fx:id="NameField" layoutX="374.0" layoutY="107.0" />
-            <TextField fx:id="EmailField" layoutX="374.0" layoutY="208.0" />
-            <TextField fx:id="PhoneField" layoutX="374.0" layoutY="242.0" />
-            <TextField fx:id="AddressField" layoutX="374.0" layoutY="275.0" />
-            <Button layoutX="419.0" layoutY="311.0" mnemonicParsing="false" text="Sign Up" onAction="#register"/>
+            <Text fx:id="BalanceField" layoutX="41.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:" wrappingWidth="163.13671875" />
+            <Button layoutX="73.0" layoutY="546.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Make A Transaction" onAction="#addTransaction"/>
+            <Button layoutX="778.0" layoutY="383.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Apply For A Loan" onAction="#addLoan"/>
+            <Button layoutX="431.0" layoutY="546.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Dispute A Transaction" onAction="#deleteTransaction"/>
+            <Text layoutX="778.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Information:" wrappingWidth="181.13671875" />
+            <Text fx:id="LoanAmountField" layoutX="778.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Amount:" wrappingWidth="181.13671875" />
+            <Text fx:id="InterestField" layoutX="778.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interest Rate:" wrappingWidth="181.13671875" />
+            <Text fx:id="PeriodField" layoutX="778.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Period:" wrappingWidth="181.13671875" />
+            <Text fx:id="LoanStartField" layoutX="778.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan Start Date:" wrappingWidth="181.13671875" />
+            <TableView fx:id="TransactionTable" layoutX="41.0" layoutY="152.0" prefHeight="370.0" prefWidth="700.0">
+              <columns>
+                <TableColumn fx:id="SenderColumn" prefWidth="175.0" text="Sender" />
+                <TableColumn fx:id="RecipientColumn" prefWidth="175.0" text="Recipient" />
+                  <TableColumn fx:id="AmountColumn" prefWidth="175.0" text="Amount" />
+                  <TableColumn fx:id="DateColumn" prefWidth="175.0" text="Transaction Date" />
+              </columns>
+            </TableView>
+            <Text fx:id="MonthlyField" layoutX="778.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monthly Loan:" wrappingWidth="181.13671875" />
+            <Text fx:id="RemainingField" layoutX="778.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remaining Loan:" wrappingWidth="181.13671875" />
+            <TextField fx:id="TransactionRecipient" layoutX="73.0" layoutY="584.0" prefHeight="25.0" prefWidth="73.0" promptText="Send To" />
+            <TextField fx:id="TransactionAmount" layoutX="162.0" layoutY="584.0" prefHeight="25.0" prefWidth="73.0" promptText="Amount" />
       </children>
     </AnchorPane>
   </children>

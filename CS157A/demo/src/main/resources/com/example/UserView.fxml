@@ -44,6 +44,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
 
 <VBox prefHeight="678.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.UserViewController">
   <children>
@@ -88,7 +89,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Text fx:id="WelcomeName" layoutX="54.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome: " wrappingWidth="318.13671875">
+            <Text fx:id="WelcomeName" layoutX="54.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome: " wrappingWidth="400">
                <font>
                   <Font size="34.0" />
                </font></Text>
@@ -101,7 +102,7 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-insets: 5; -fx-border-style: solid;" onMouseClicked="#AccountLoad1">
                      <children>
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Account" wrappingWidth="172.13671875" />
-                        <Text fx:id="CheckingBalance" layoutX="14.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:" wrappingWidth="172.13671875">
+                        <Text fx:id="CheckingBalance" layoutX="14.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:" wrappingWidth="400">
                            <font>
                               <Font size="33.0" />
                            </font></Text>
@@ -114,7 +115,7 @@
                   <Pane prefHeight="200.0" prefWidth="475.0" style="-fx-border-style: solid; -fx-border-insets: 5; -fx-border-color: grey;" onMouseClicked="#AccountLoad2">
                      <children>
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account" wrappingWidth="172.13671875" />
-                        <Text fx:id="SavingsBalance" layoutX="14.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance: " wrappingWidth="329.13671875">
+                        <Text fx:id="SavingsBalance" layoutX="14.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance: " wrappingWidth="400">
                            <font>
                               <Font size="33.0" />
                            </font></Text>
@@ -127,7 +128,7 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-style: solid; -fx-border-color: grey; -fx-border-insets: 5;" onMouseClicked="#AccountLoad3">
                      <children>
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card" wrappingWidth="172.13671875" />
-                        <Text fx:id="CreditBalance" layoutX="16.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance: " wrappingWidth="340.13671875">
+                        <Text fx:id="CreditBalance" layoutX="16.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance: " wrappingWidth="400">
                            <font>
                               <Font size="32.0" />
                            </font></Text>
@@ -144,21 +145,24 @@
                   <Font size="25.0" />
                </font>
             </Text>
-            <Label fx:id="Email" layoutX="748.0" layoutY="166.0" prefHeight="17.0" prefWidth="141.0" text="Email:">
+            <Label layoutX="748.0" layoutY="166.0" prefHeight="17.0" prefWidth="141.0" text="Email">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="Phone" layoutX="748.0" layoutY="128.0" prefHeight="17.0" prefWidth="141.0" text="Phone:">
+            <TextField fx:id="Email" layoutX="833.0" layoutY="166.0" prefHeight="25.0" prefWidth="149.0" />
+            <Label layoutX="748.0" layoutY="128.0" prefHeight="17.0" prefWidth="141.0" text="Phone">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="Address" layoutX="748.0" layoutY="203.0" prefHeight="17.0" prefWidth="141.0" text="Address:">
+            <TextField fx:id="Phone" layoutX="833.0" layoutY="128.0" prefHeight="25.0" prefWidth="149.0" />
+            <Label layoutX="748.0" layoutY="203.0" prefHeight="17.0" prefWidth="141.0" text="Address">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
+            <TextField fx:id="Address" layoutX="833.0" layoutY="203.0" prefHeight="25.0" prefWidth="149.0" />
             <Button fx:id="LogOutButton" layoutX="773.0" layoutY="574.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Log Out" onAction="#switchToMainMenu"/>
             <Button fx:id="UpdateButton" layoutX="782.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Update Info" onAction="#updateUser"/>
          </children>
