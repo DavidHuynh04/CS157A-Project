@@ -1,11 +1,13 @@
+// David Huynh: Last Update 5/10
 package com.example.MySqlLogic;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+// Creates 15 inserts statements for each table
 public class DataGenerator {
-
+    // Gets the connection an generates the data
     public static void main(String[] args){
         try {
             Connection conn = SQLConnection.getConnection();
@@ -14,7 +16,7 @@ public class DataGenerator {
         } catch (Exception e) {
         }
     }
-    
+    // Creates Insert statements by using for loops
     public static void generateData(Connection conn) {
         try {
             // Generate 15 Users

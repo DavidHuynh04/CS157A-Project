@@ -1,15 +1,21 @@
-package com.example;
+// David Huynh: Last Update 5/10
+package com.example.controllers;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.example.AccountClass;
+import com.example.App;
+import com.example.LoanClass;
 import com.example.MySqlLogic.DeleteFunction;
 import com.example.MySqlLogic.ExtractFunction;
 import com.example.MySqlLogic.InsertFunction;
 import com.example.MySqlLogic.SQLConnection;
+import com.example.TransactionClass;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
+// FXML Controller for the account view
 public class AccountController {
     @FXML
     private Label AccountField;
@@ -57,18 +64,20 @@ public class AccountController {
     private ArrayList<LoanClass> loans;
     private ArrayList<TransactionClass> transactions;
 
-
+    // Gets the information of the current account and sets the information
     public void initialize() throws SQLException{
         currentAccount = AccountClass.getCurrentAccount();
         setInfo();
         setLoanInfo();
         populateTransactions();
     }
+    // Sets the Account details
     @FXML
     public void setInfo(){
         AccountField.setText("Account Type: " + currentAccount.getAccountType());
         BalanceField.setText("Balance: " + currentAccount.getBalance());
     }
+    // Sets the loan information if the account has a loan through a SELECT query
     @FXML
     public void setLoanInfo() throws SQLException{
         loans = ExtractFunction.getLoansByAccountID(SQLConnection.getConnection(), currentAccount.getAccountID());
@@ -82,6 +91,8 @@ public class AccountController {
             RemainingField.setText("Remaining Loan: " + temp.getLoanRemaining());
         }
     }
+    // Uses a SELECT query to find all transactions with the current account ID
+    // Sets the table columns equal to values found in the transaction class
     @FXML
     public void populateTransactions() throws SQLException{
         transactions = ExtractFunction.getTransactionsByAccountID(SQLConnection.getConnection(), currentAccount.getAccountID());
@@ -91,6 +102,7 @@ public class AccountController {
         DateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
         TransactionTable.getItems().setAll(transactions);
     }
+    // If an account is not linked to a loan, inserts a default loan
     @FXML
     public void addLoan() throws SQLException{
         if (loans.isEmpty()){
@@ -106,6 +118,8 @@ public class AccountController {
             error.showAndWait();
         }
     }
+    // Takes input of account to send to and amount to send, and uses an INSERT statement
+    // The insertFunction also changes the balances of the account
     @FXML
     public void addTransaction() throws SQLException{
         int recipient = Integer.parseInt(TransactionRecipient.getText());
@@ -113,6 +127,7 @@ public class AccountController {
         InsertFunction.insertTransaction(SQLConnection.getConnection(), currentAccount.getAccountID(), recipient, amount);
         populateTransactions();
     }
+    // Takes the ID of the selected transaction and uses a DELETE statement to delete it
     @FXML
     public void deleteTransaction() throws SQLException{
         if (!TransactionTable.getSelectionModel().isEmpty()){
@@ -120,5 +135,10 @@ public class AccountController {
             DeleteFunction.deleteTransaction(SQLConnection.getConnection(), selected.getTransactionID());
             populateTransactions();
         }
+    }
+    // Returns to the user view
+    @FXML
+    private void goBack() throws IOException{
+        App.setRoot("UserView");
     }
 }

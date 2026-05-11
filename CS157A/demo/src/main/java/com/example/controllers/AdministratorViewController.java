@@ -1,13 +1,19 @@
-package com.example;
+// David Huynh: Last Update 5/10
+package com.example.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.example.AccountClass;
+import com.example.App;
+import com.example.LoanClass;
 import com.example.MySqlLogic.DeleteFunction;
 import com.example.MySqlLogic.ExtractFunction;
 import com.example.MySqlLogic.SQLConnection;
 import com.example.MySqlLogic.UpdateFunction;
+import com.example.SessionInformation;
+import com.example.TransactionClass;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -17,7 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-
+// FXML Controller for the Administrator view
 public class AdministratorViewController {
     @FXML
     private ChoiceBox<String> SearchChoice;
@@ -38,17 +44,19 @@ public class AdministratorViewController {
     private ArrayList<LoanClass> loanList;
 
 
-
-
+    // On start
     public void initialize() throws SQLException{
         setChoiceBoxes();
     }
-
+    // Sets the options for the drop down boxes
     @FXML
     public void setChoiceBoxes(){
         SearchChoice.getItems().addAll("users", "accounts", "loans", "transactions");
         DeleteChoice.getItems().addAll("users", "accounts", "loans", "transactions");
     }
+    // Based on the options selected, populates table with that search query
+    // Temp1 is the table name, temp2, is the WHERE condition, where temp2 = temp3
+    // First checks which table is selected, if the where condition is not filled, instead returns the full table 
     @FXML
     public void populateTable() throws SQLException{
         String temp1 = SearchChoice.getValue();
@@ -91,6 +99,7 @@ public class AdministratorViewController {
             populateTransactionTable();
         }
     }
+    // Populates the table with columns and values belonging to the user table
     @FXML
     public void populateUserTable(){
         TableView.getColumns().clear();
@@ -114,6 +123,7 @@ public class AdministratorViewController {
         TableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableView.setItems(FXCollections.observableArrayList(userList));
     }
+    // Populates the table with columns and values belonging to the account table
     @FXML
     public void populateAccountTable(){
         TableView.getColumns().clear();
@@ -133,6 +143,7 @@ public class AdministratorViewController {
         TableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableView.setItems(FXCollections.observableArrayList(accountList));     
     }
+    // Populates the table with columns and values belonging to the transaction table
     @FXML
     public void populateTransactionTable(){
         TableView.getColumns().clear();
@@ -150,6 +161,7 @@ public class AdministratorViewController {
         TableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableView.setItems(FXCollections.observableArrayList(transactionList));     
     }
+    // Populates the table with columns and values belonging to the loan table
     @FXML
     public void populateLoanTable(){
         TableView.getColumns().clear();
@@ -173,6 +185,7 @@ public class AdministratorViewController {
         TableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableView.setItems(FXCollections.observableArrayList(loanList));     
     }
+    // Gets the table and ID inputted, and uses a Delete Statement to remove the tuple
     @FXML
     public void deleteTuple() throws SQLException{
         String temp1 = DeleteChoice.getValue();
@@ -192,10 +205,13 @@ public class AdministratorViewController {
             }
         }
     }
+    // Applies monthly loan payments with an update function
+
     @FXML
     public void applyMonthly() throws SQLException{
         UpdateFunction.updateLoanMonthly(SQLConnection.getConnection());
     }
+    // Returns to the main menu scene
     @FXML
     private void switchToMainMenu() throws IOException {
         App.setRoot("MainMenuScene");

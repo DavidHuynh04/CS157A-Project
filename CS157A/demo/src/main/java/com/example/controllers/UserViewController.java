@@ -1,4 +1,5 @@
-package com.example;
+// David Huynh: Last Update 5/10
+package com.example.controllers;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -6,6 +7,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.example.AccountClass;
+import com.example.App;
+import com.example.LoanClass;
+import com.example.SessionInformation;
 import com.example.MySqlLogic.ExtractFunction;
 import com.example.MySqlLogic.InsertFunction;
 import com.example.MySqlLogic.SQLConnection;
@@ -14,6 +19,7 @@ import com.example.MySqlLogic.UpdateFunction;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+// FXML controller for the customer user view
 public class UserViewController {
     @FXML 
     private Text WelcomeName;
@@ -39,11 +45,13 @@ public class UserViewController {
     
     private static SessionInformation currentSession;
 
+    // On start get and set user information
     public void initialize()throws SQLException{
         currentSession = SessionInformation.getSession();
         setInfo();
         setAccountInfo();
     }
+    // Sets user information
     @FXML
     public void setInfo(){
         WelcomeName.setText("Welcome: " + currentSession.getName());
@@ -51,6 +59,7 @@ public class UserViewController {
         Phone.setText(currentSession.getPhone());
         Address.setText(currentSession.getAddress());
     }
+    // Sets user account information by using SQL select account from userID
     public void setAccountInfo()throws SQLException{
         accounts = ExtractFunction.getAccountsByUserID(SQLConnection.getConnection(), currentSession.getUserID());
         AccountClass temp;
@@ -73,6 +82,7 @@ public class UserViewController {
             }
         }
     }
+    // Sets information related to user to null and returns to main menu
     @FXML
     private void switchToMainMenu() throws IOException {
         SessionInformation.setSession(null);
@@ -82,6 +92,8 @@ public class UserViewController {
         LoanClass.setCurrentLoan(null);
         App.setRoot("MainMenuScene");
     }
+    // Loads the Checking Account information of the user
+    // If account is not found, inserts a new account of this type
     @FXML
     private void AccountLoad1() throws SQLException, IOException{
         AccountClass temp = AccountClass.getCheckingAccount();
@@ -94,6 +106,8 @@ public class UserViewController {
             setAccountInfo();
         }
     }
+    // Loads the Savings Account information of the user;
+    // If account is not found, inserts a new account of this type
     @FXML
     private void AccountLoad2() throws SQLException, IOException{
         AccountClass temp = AccountClass.getSavingsAccount();
@@ -106,6 +120,8 @@ public class UserViewController {
             setAccountInfo();
         }
     }
+    // Loads the Credit Card Account information of the user;
+    // If account is not found, inserts a new account of this type
     @FXML
     private void AccountLoad3() throws SQLException, IOException{
         AccountClass temp = AccountClass.getCreditAccount();
@@ -117,7 +133,8 @@ public class UserViewController {
             InsertFunction.insertAccount(SQLConnection.getConnection(), currentSession.getUserID(), 0, "Credit Card", 18.0, Date.valueOf(LocalDate.now()));
             setAccountInfo();
         }
-    }   
+    }
+    // Gets updated information from text fields and uses SQL update function
     @FXML
     private void updateUser() throws SQLException{
         UpdateFunction.updateUser(SQLConnection.getConnection(), currentSession.getUserID(), currentSession.getUsername(), 

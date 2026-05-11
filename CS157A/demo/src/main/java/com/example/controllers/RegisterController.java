@@ -1,9 +1,11 @@
-package com.example;
+// David Huynh: Last Update 5/10
+package com.example.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashSet;
 
+import com.example.App;
 import com.example.MySqlLogic.ExtractFunction;
 import com.example.MySqlLogic.InsertFunction;
 import com.example.MySqlLogic.SQLConnection;
@@ -13,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+// FXML Controller for the register page
 public class RegisterController {
     @FXML
     private TextField UsernameField;
@@ -28,10 +31,13 @@ public class RegisterController {
     private TextField PhoneField;
     @FXML 
     private TextField AddressField;
+    // Returns to the main menu
     @FXML
     private void backButton() throws IOException {
         App.setRoot("MainMenuScene");
     }
+    // Gets the inputted information and inserts a user into the database
+    // If the passwords arent matching or the username is not unique, does not insert and shows an error message
     @FXML
     private void register() throws SQLException, IOException{
         String username = UsernameField.getText();

@@ -46,7 +46,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
 
-<VBox prefHeight="678.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.UserViewController">
+<VBox prefHeight="678.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.UserViewController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>

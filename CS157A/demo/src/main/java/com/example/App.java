@@ -1,3 +1,4 @@
+// David Huynh: Last Update 5/10
 package com.example;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage stage;
-
+    // Sets the stage
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
@@ -23,8 +24,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-    static void setRoot(String fxml) throws IOException {
+    // Sets the root and adjusts the size of the window
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
         stage.sizeToScene();
     }
@@ -33,7 +34,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-
+    // Launches the application
     public static void main(String[] args) {
         launch();
     }
