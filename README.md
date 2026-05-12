@@ -4,8 +4,8 @@ Fully functional three tiered desktop application for a Banking Database System 
 Instructions for setting up project:
 1. Start your MySQL Database server
 2. Go to src/main/java/com/example/MySqlLogic/SQLConnection.java and replace the database credentials with your own.
-3. Create the schema and initialize the data
-  a. Use create_database.sql and initialize_data.sql inside MySQL Workbench
+3. Create the schema and initialize the data by:
+  a. Use create_database.sql and initialize_data.sql from src/main/java/resources/com/example inside MySQL Workbench
   b. OR Run src/main/java/com/example/MySqlLogic/DataGenerator.java
 4. Launch the program by running src/main/java/com/example/App.java
 5. (Optional) Use (user5,password5) to log into the administrator view or (user1,password1) to log into a customer view.
